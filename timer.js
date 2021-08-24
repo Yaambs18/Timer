@@ -1,20 +1,21 @@
 function countdown(){
     var now = new Date();
 
-    var eventDate = new Date("August 27 2021");
+    var eventDate = new Date("Aug 24 2021 21:37:0");
     var eventTime =  eventDate.getTime();
+    console.log(eventTime)
 
     var currentTime = now.getTime();
     var remTime = eventTime - currentTime;
-
-
-    if(remTime < 0){
-        clearInterval(interval);
-    }
     var s = Math.floor(remTime/1000);
     var m = Math.floor(s/60);
     var h = Math.floor(m/60);
     var d = Math.floor(h/24);
+    var days = document.getElementById("days") 
+    var hours = document.getElementById("hours")
+    var min = document.getElementById("minutes")
+    var sec = document.getElementById("seconds")
+    
 
     h %= 24;
     m %= 60;
@@ -25,13 +26,36 @@ function countdown(){
     s = (s<10) ? "0" +s : s;
     d=(d<10)?"0"+d:d;
 
-    document.getElementById("days").textContent = d;
-    document.getElementById("days").innerText = d;
 
-    document.getElementById("hours").textContent = h;
-    document.getElementById("minutes").textContent = m;
-    document.getElementById("seconds").textContent = s;
+    if(remTime <=0){
+        clearInterval(interval);
+        console.log("khtm") 
+    }else{
+        days.textContent=d
+        rotate(d,days)
+        hours.textContent=h
+        rotate(h,hours)
+        min.textContent=m
+        rotate(m,min)
+        sec.textContent=s
+        rotate(s,sec)
+    
+    }
+
+    
 
 }
+ var interval=setInterval(countdown, 1000)   
 
-var interval=setInterval(countdown, 1000)
+function rotate(n,card)
+{
+    card.style.transformStyle ="preserve-3d";
+    card.style.transition="transform 0.8s";
+    if(n%2==0)
+    {
+        card.style.transform ="rotateX(360deg)";
+    }
+    else{
+        card.style.transform ="rotateX(0deg)"
+    }
+}
